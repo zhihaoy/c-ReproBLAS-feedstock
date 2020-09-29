@@ -1,0 +1,46 @@
+{% set version = "9d367af" %}
+{% set sha256 = "a4256b93dc624adbc5d7678ef82936a52c4e48d41b5dc768f7a59fde1966b108" %}
+
+package:
+  name: reproblas
+  version: "2.1.0"
+
+source:
+  url: https://github.com/zhihaoy/ReproBLAS/archive/{{ version }}.zip
+  sha256: {{ sha256 }}
+
+build:
+  number: 0
+  skip: True  # [win and vc<14]
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+    - cmake >=3.17
+    - ninja
+  host: []  # Empty host dependency section
+
+test:
+  commands:
+    - test -f ${PREFIX}/include/reproBLAS/reproBLAS_api.h          # [unix]
+    - test -f ${PREFIX}/lib/cmake/reproBLAS/reproBLAS-config.cmake # [unix]
+    - if exist %LIBRARY_PREFIX%\include\reproBLAS\reproBLAS_api.h (exit 0) else (exit 1)          # [win]
+    - if exist %LIBRARY_PREFIX%\lib\cmake\reproBLAS\reproBLAS-config.cmake (exit 0) else (exit 1) # [win]
+
+about:
+  home: https://bebop.cs.berkeley.edu/reproblas/
+  license: BSD 3-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: Reproducible Basic Linear Algebra Subprograms
+  description: |
+    ReproBLAS aims at providing users with a set of (Parallel and
+    Sequential) Basic Linear Algebra Subprograms that guarantee
+    reproducibility regardless of the number of processors, of the
+    data partitioning, of the way reductions are scheduled, and
+    more generally of the order in which the sums are computed.
+  doc_url: https://bebop.cs.berkeley.edu/reproblas/documentation.php
+
+extra:
+  recipe-maintainers:
+    - zhihao.yuan
