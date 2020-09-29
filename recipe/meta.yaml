@@ -1,5 +1,5 @@
-{% set version = "1804fbe" %}
-{% set sha256 = "f658b130f530f0bd35706edd2050680005063bcea1afae195c368830f4903fd6" %}
+{% set version = "87fd246" %}
+{% set sha256 = "507f797707ec117163f818cc223d0913a7d2fa8c11bacc117dfcda6672443ebf" %}
 
 package:
   name: reproblas
@@ -10,7 +10,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  number: 2
   skip: True  # [win and vc<14]
 
 requirements:
@@ -23,9 +23,9 @@ requirements:
 test:
   commands:
     - test -f ${PREFIX}/include/reproBLAS/reproBLAS_api.h          # [unix]
-    - test -f ${PREFIX}/lib/cmake/reproBLAS/reproBLAS-config.cmake # [unix]
+    - test -f ${PREFIX}/lib/cmake/reproBLAS/reproblas-config.cmake # [unix]
     - if exist %LIBRARY_PREFIX%\include\reproBLAS\reproBLAS_api.h (exit 0) else (exit 1)          # [win]
-    - if exist %LIBRARY_PREFIX%\lib\cmake\reproBLAS\reproBLAS-config.cmake (exit 0) else (exit 1) # [win]
+    - if exist %LIBRARY_PREFIX%\lib\cmake\reproBLAS\reproblas-config.cmake (exit 0) else (exit 1) # [win]
 
 about:
   home: https://bebop.cs.berkeley.edu/reproblas/
